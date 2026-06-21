@@ -14,13 +14,13 @@ pub async fn init_db() -> PgPool {
             id          UUID PRIMARY KEY,
             job_type    TEXT NOT NULL,
             payload     JSONB NOT NULL,
-            status      TEXT NOT NULL DEFAULT 'Queued',
+            state      TEXT NOT NULL,
             attempts    INTEGER DEFAULT 0,
             created_at  TIMESTAMPTZ DEFAULT NOW()
         )"
     )
     .execute(&pool)
-    .await
+    .await  
     .unwrap();
 
     println!("DB connected");

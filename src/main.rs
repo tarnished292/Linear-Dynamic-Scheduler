@@ -1,7 +1,6 @@
 mod job;
 mod server;
 use dotenvy::dotenv;
-use std::env;
 mod db;
 
 #[tokio::main]
