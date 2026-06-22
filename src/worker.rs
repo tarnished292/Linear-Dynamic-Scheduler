@@ -42,6 +42,15 @@ pub async fn execute_job(job: &Job) -> Result<(), String> {
             println!("Process payment of: {}", job.payload["amount"]);
             Ok(())
         }
+        "slow_job" => {
+            let duration = job.payload["duration_ms"]
+                .as_u64()
+                .unwrap_or(1000);
+            
+            tokio::time::sleep(tokio::time::Duration::from_millis(duration)).await;
+            println!("slow job done after {}ms", job.id);
+            Ok(())
+        }
         _ => Err(format!("Uknown Job type: {}", job.job_type)),
     }
 }

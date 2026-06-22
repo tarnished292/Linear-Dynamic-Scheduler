@@ -4,7 +4,7 @@ pub async fn init_db() -> PgPool {
     let url = std::env::var("DATABASE_URL").expect("DATABASE_URL not set");
     
     let pool = PgPoolOptions::new()
-        .max_connections(5)
+        .max_connections(11)
         .connect(&url)
         .await
         .unwrap();

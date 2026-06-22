@@ -1,11 +1,10 @@
+mod db;
 mod job;
 mod server;
-mod db;
 mod worker;
 use dotenvy::dotenv;
 
 use crate::worker::run_workers;
-
 
 #[tokio::main]
 async fn main() {
@@ -13,10 +12,10 @@ async fn main() {
 
     let pool = db::init_db().await;
 
-    let worker_count = 4;
+    let worker_count = 10;
 
     run_workers(pool.clone(), worker_count);
-     
+
     let app = server::create_router(pool);
     let listener = tokio::net::TcpListener::bind("0.0.0.0:3000").await.unwrap();
 
